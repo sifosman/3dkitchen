@@ -1,0 +1,145 @@
+{
+  "name": "HDS Kitchen Color Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "generate-kitchen-colors",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Board colors from HDS catalog\nconst boardColors = [\n  { id: 'iceland-gloss', name: 'Iceland Gloss', hex: '#F5F5F5', prompt: 'pure white glossy' },\n  { id: 'metallic-cappuccino-gloss', name: 'Metallic Cappuccino', hex: '#8B7355', prompt: 'metallic cappuccino brown glossy' },\n  { id: 'desert-sky-gloss', name: 'Desert Sky', hex: '#C4B49A', prompt: 'warm beige sandy glossy' },\n  { id: 'olivia-gloss', name: 'Olivia', hex: '#B8A88A', prompt: 'warm taupe glossy' },\n  { id: 'moonstone-gloss', name: 'Moonstone', hex: '#B8B8B8', prompt: 'silver gray glossy' },\n  { id: 'pearl-grey-gloss', name: 'Pearl Grey', hex: '#C0C0C0', prompt: 'pearl gray glossy' },\n  { id: 'charcoal-grey-gloss', name: 'Charcoal Grey', hex: '#36454F', prompt: 'dark charcoal gray glossy' },\n  { id: 'caligra-gloss', name: 'Caligra', hex: '#9A8F7A', prompt: 'warm greige glossy' },\n  { id: 'black-gloss', name: 'Black Gloss', hex: '#1a1a1a', prompt: 'jet black glossy' },\n  { id: 'beige-linnen-gloss', name: 'Beige Linnen', hex: '#D4C4A8', prompt: 'light beige linen glossy' },\n  { id: 'dakota-oak-gloss', name: 'Dakota Oak', hex: '#9A7B4F', prompt: 'warm oak wood glossy' },\n  { id: 'driftwood-gloss', name: 'Driftwood', hex: '#9A8B7A', prompt: 'weathered driftwood gray glossy' },\n  { id: 'flagstaff-oak-gloss', name: 'Flagstaff Oak', hex: '#A0826D', prompt: 'medium oak wood glossy' },\n  { id: 'glaston-berry-gloss', name: 'Glaston Berry', hex: '#8A9A8A', prompt: 'sage green glossy' },\n  { id: 'liberty-oak-gloss', name: 'Liberty Oak', hex: '#B8956A', prompt: 'light oak wood glossy' },\n  { id: 'metropolitan-loft-gloss', name: 'Metropolitan Loft', hex: '#7A828E', prompt: 'urban gray glossy' },\n  { id: 'white-linnen-gloss', name: 'White Linnen', hex: '#F0EBE0', prompt: 'off-white linen glossy' },\n  { id: 'alaskan-cherry', name: 'Alaskan Cherry', hex: '#6B3E2E', prompt: 'rich cherry wood' },\n  { id: 'american-white-oak', name: 'American White Oak', hex: '#D4C4A8', prompt: 'light oak wood' },\n  { id: 'dakota-oak', name: 'Dakota Oak', hex: '#9A7B4F', prompt: 'warm oak wood' },\n  { id: 'flagstaff-oak', name: 'Flagstaff Oak', hex: '#A0826D', prompt: 'medium oak wood' },\n  { id: 'lancaster-oak', name: 'Lancaster Oak', hex: '#A0785A', prompt: 'classic oak wood' },\n  { id: 'liberty-oak', name: 'Liberty Oak', hex: '#B8956A', prompt: 'light oak wood' },\n  { id: 'nappa-oak', name: 'Nappa Oak', hex: '#C4A77D', prompt: 'honey oak wood' },\n  { id: 'sienna-oak', name: 'Sienna Oak', hex: '#A0826D', prompt: 'sienna brown oak' },\n  { id: 'washed-oak', name: 'Washed Oak', hex: '#C9B896', prompt: 'light washed oak' },\n  { id: 'brown-white-kiaat', name: 'Brown White Kiaat', hex: '#8B6914', prompt: 'golden kiaat wood' },\n  { id: 'lake-city-oak', name: 'Lake City Oak', hex: '#9A7B4F', prompt: 'warm oak wood' },\n  { id: 'new-mackinley-birch', name: 'Mackinley Birch', hex: '#D4C4A8', prompt: 'light birch wood' },\n  { id: 'pecan-ironwood', name: 'Pecan Ironwood', hex: '#5D4037', prompt: 'dark pecan wood' },\n  { id: 'silver-mirror', name: 'Silver Mirror', hex: '#C0C0C0', prompt: 'silver mirror metallic' },\n  { id: 'gold-mirror', name: 'Gold Mirror', hex: '#FFD700', prompt: 'gold mirror metallic' },\n  { id: 'rose-gold-mirror', name: 'Rose Gold Mirror', hex: '#B76E79', prompt: 'rose gold metallic' },\n  { id: 'desert-sky-silktouch', name: 'Desert Sky Silk', hex: '#C4B49A', prompt: 'matte warm beige' },\n  { id: 'olivia-silktouch', name: 'Olivia Silk', hex: '#B8A88A', prompt: 'matte warm taupe' },\n  { id: 'moonstone-silktouch', name: 'Moonstone Silk', hex: '#B8B8B8', prompt: 'matte silver gray' },\n  { id: 'pearl-grey-silktouch', name: 'Pearl Grey Silk', hex: '#C0C0C0', prompt: 'matte pearl gray' },\n  { id: 'charcoal-grey-silktouch', name: 'Charcoal Grey Silk', hex: '#36454F', prompt: 'matte dark gray' },\n  { id: 'black-silktouch', name: 'Black Silk', hex: '#1a1a1a', prompt: 'matte jet black' },\n  { id: 'caligra-silktouch', name: 'Caligra Silk', hex: '#9A8F7A', prompt: 'matte warm greige' },\n  { id: 'flagstaff-oak-silktouch', name: 'Flagstaff Oak Silk', hex: '#A0826D', prompt: 'matte medium oak' },\n  { id: 'iceland-super-matte', name: 'Iceland Super Matte', hex: '#FFFFFF', prompt: 'matte pure white' }\n];\n\n// Configuration\nconst KITCHEN_IMAGE_URL = 'https://your-domain.com/images/kitchen-base.jpg';\nconst OPENROUTER_API_KEY = $credentials.openRouterApiKey;\n\n// Return all colors for processing\nreturn boardColors.map(color => ({\n  ...color,\n  kitchenImage: KITCHEN_IMAGE_URL\n}));"
+      },
+      "id": "colors-data",
+      "name": "Get Board Colors",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare OpenRouter request for Gemini\nconst color = $input.item.json;\n\nconst prompt = `A modern kitchen with ${color.prompt} kitchen cabinets. The cabinets are clearly visible with the new color applied. Photorealistic, professional interior photography, high quality, same layout and lighting as reference.`;\n\nreturn {\n  color: color,\n  prompt: prompt,\n  apiRequest: {\n    model: 'google/gemini-2.0-flash-exp:free',\n    messages: [\n      {\n        role: 'user',\n        content: [\n          {\n            type: 'text',\n            text: prompt\n          },\n          {\n            type: 'image_url',\n            image_url: {\n              url: color.kitchenImage\n            }\n          }\n        ]\n      }\n    ],\n    max_tokens: 4096\n  }\n};"
+      },
+      "id": "prepare-request",
+      "name": "Prepare AI Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "requestMethod": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeader",
+        "httpHeaderAuth": "openRouterApiKey",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameter": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "json",
+        "body": "={{ $json.apiRequest }}",
+        "options": {}
+      },
+      "id": "openrouter-call",
+      "name": "OpenRouter Gemini",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [850, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "openRouterApiKey",
+          "name": "OpenRouter API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract generated image URL from OpenRouter response\nconst response = $input.item.json;\nconst color = $input.item.color;\n\n// For Gemini image generation, we get base64 image data\n// In production, we'd upload to storage and get URL\n\nconst imageData = response.choices?.[0]?.message?.content;\n\nreturn {\n  colorId: color.id,\n  colorName: color.name,\n  colorHex: color.hex,\n  imageData: imageData,\n  timestamp: new Date().toISOString()\n};"
+      },
+      "id": "extract-result",
+      "name": "Extract Image",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "requestMethod": "POST",
+        "url": "https://xzsibbbghotreolzwnyk.supabase.co/storage/v1/object/public/kitchen-colors/",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeader",
+        "httpHeaderAuth": "supabaseServiceKey",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameter": [
+            {
+              "name": "Content-Type",
+              "value": "image/jpeg"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyContentType": "binary",
+        "body": "={{ $json.imageData }}",
+        "options": {}
+      },
+      "id": "save-to-supabase",
+      "name": "Save to Supabase",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1250, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "supabaseServiceKey",
+          "name": "Supabase Service Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1450, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{"node": "Get Board Colors", "type": "main", "index": 0}]]
+    },
+    "Get Board Colors": {
+      "main": [[{"node": "Prepare AI Request", "type": "main", "index": 0}]]
+    },
+    "Prepare AI Request": {
+      "main": [[{"node": "OpenRouter Gemini", "type": "main", "index": 0}]]
+    },
+    "OpenRouter Gemini": {
+      "main": [[{"node": "Extract Image", "type": "main", "index": 0}]]
+    },
+    "Extract Image": {
+      "main": [[{"node": "Save to Supabase", "type": "main", "index": 0}]]
+    },
+    "Save to Supabase": {
+      "main": [[{"node": "Respond to Webhook", "type": "main", "index": 0}]]
+    }
+  }
+}

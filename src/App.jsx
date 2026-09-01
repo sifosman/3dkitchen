@@ -4,6 +4,7 @@ import { OrbitControls, Environment, ContactShadows, SoftShadows } from '@react-
 import * as THREE from 'three'
 import KitchenScene from './components/KitchenScene'
 import PhotoColorizer from './components/PhotoColorizer'
+import PreGeneratedColorizer from './components/PreGeneratedColorizer'
 import ColorPalette from './components/ColorPalette'
 import Header from './components/Header'
 import { boardColors, defaultColor } from './data/boardColors'
@@ -153,7 +154,7 @@ function App() {
       </div>
 
       {mode === 'photo' ? (
-        <PhotoColorizer />
+        <PreGeneratedColorizer />
       ) : (
         <ThreeDViewer selectedColor={selectedColor} onColorSelect={setSelectedColor} />
       )}

@@ -1,0 +1,303 @@
+{
+  "generated": "2026-09-01T11:32:32.638Z",
+  "kitchenImage": "kitchen-base.jpg",
+  "colors": [
+    {
+      "id": "iceland-gloss",
+      "name": "Iceland Gloss",
+      "hex": "#F5F5F5",
+      "prompt": "pure white glossy",
+      "success": true,
+      "imageFile": "iceland-gloss.png",
+      "error": null
+    },
+    {
+      "id": "metallic-cappuccino-gloss",
+      "name": "Metallic Cappuccino",
+      "hex": "#8B7355",
+      "prompt": "metallic cappuccino brown glossy",
+      "success": true,
+      "imageFile": "metallic-cappuccino-gloss.png",
+      "error": null
+    },
+    {
+      "id": "desert-sky-gloss",
+      "name": "Desert Sky",
+      "hex": "#C4B49A",
+      "prompt": "warm beige sandy glossy",
+      "success": true,
+      "imageFile": "desert-sky-gloss.png",
+      "error": null
+    },
+    {
+      "id": "olivia-gloss",
+      "name": "Olivia",
+      "hex": "#B8A88A",
+      "prompt": "warm taupe glossy",
+      "success": true,
+      "imageFile": "olivia-gloss.png",
+      "error": null
+    },
+    {
+      "id": "moonstone-gloss",
+      "name": "Moonstone",
+      "hex": "#B8B8B8",
+      "prompt": "silver gray glossy",
+      "success": true,
+      "imageFile": "moonstone-gloss.png",
+      "error": null
+    },
+    {
+      "id": "pearl-grey-gloss",
+      "name": "Pearl Grey",
+      "hex": "#C0C0C0",
+      "prompt": "pearl gray glossy",
+      "success": true,
+      "imageFile": "pearl-grey-gloss.png",
+      "error": null
+    },
+    {
+      "id": "charcoal-grey-gloss",
+      "name": "Charcoal Grey",
+      "hex": "#36454F",
+      "prompt": "dark charcoal gray glossy",
+      "success": true,
+      "imageFile": "charcoal-grey-gloss.png",
+      "error": null
+    },
+    {
+      "id": "caligra-gloss",
+      "name": "Caligra",
+      "hex": "#9A8F7A",
+      "prompt": "warm greige glossy",
+      "success": true,
+      "imageFile": "caligra-gloss.png",
+      "error": null
+    },
+    {
+      "id": "black-gloss",
+      "name": "Black Gloss",
+      "hex": "#1a1a1a",
+      "prompt": "jet black glossy",
+      "success": true,
+      "imageFile": "black-gloss.png",
+      "error": null
+    },
+    {
+      "id": "beige-linnen-gloss",
+      "name": "Beige Linnen",
+      "hex": "#D4C4A8",
+      "prompt": "light beige linen glossy",
+      "success": true,
+      "imageFile": "beige-linnen-gloss.png",
+      "error": null
+    },
+    {
+      "id": "dakota-oak-gloss",
+      "name": "Dakota Oak Gloss",
+      "hex": "#9A7B4F",
+      "prompt": "warm oak wood glossy",
+      "success": true,
+      "imageFile": "dakota-oak-gloss.png",
+      "error": null
+    },
+    {
+      "id": "driftwood-gloss",
+      "name": "Driftwood",
+      "hex": "#9A8B7A",
+      "prompt": "weathered driftwood gray glossy",
+      "success": true,
+      "imageFile": "driftwood-gloss.png",
+      "error": null
+    },
+    {
+      "id": "flagstaff-oak-gloss",
+      "name": "Flagstaff Oak Gloss",
+      "hex": "#A0826D",
+      "prompt": "medium oak wood glossy",
+      "success": true,
+      "imageFile": "flagstaff-oak-gloss.png",
+      "error": null
+    },
+    {
+      "id": "glaston-berry-gloss",
+      "name": "Glaston Berry",
+      "hex": "#8A9A8A",
+      "prompt": "sage green glossy",
+      "success": true,
+      "imageFile": "glaston-berry-gloss.png",
+      "error": null
+    },
+    {
+      "id": "liberty-oak-gloss",
+      "name": "Liberty Oak Gloss",
+      "hex": "#B8956A",
+      "prompt": "light oak wood glossy",
+      "success": true,
+      "imageFile": "liberty-oak-gloss.png",
+      "error": null
+    },
+    {
+      "id": "metropolitan-loft-gloss",
+      "name": "Metropolitan Loft",
+      "hex": "#7A828E",
+      "prompt": "urban gray glossy",
+      "success": true,
+      "imageFile": "metropolitan-loft-gloss.png",
+      "error": null
+    },
+    {
+      "id": "white-linnen-gloss",
+      "name": "White Linnen",
+      "hex": "#F0EBE0",
+      "prompt": "off-white linen glossy",
+      "success": false,
+      "imageFile": null,
+      "error": "No image data in response"
+    },
+    {
+      "id": "alaskan-cherry",
+      "name": "Alaskan Cherry",
+      "hex": "#6B3E2E",
+      "prompt": "rich cherry wood",
+      "success": true,
+      "imageFile": "alaskan-cherry.png",
+      "error": null
+    },
+    {
+      "id": "american-white-oak",
+      "name": "American White Oak",
+      "hex": "#D4C4A8",
+      "prompt": "light oak wood",
+      "success": true,
+      "imageFile": "american-white-oak.png",
+      "error": null
+    },
+    {
+      "id": "dakota-oak",
+      "name": "Dakota Oak",
+      "hex": "#9A7B4F",
+      "prompt": "warm oak wood",
+      "success": true,
+      "imageFile": "dakota-oak.png",
+      "error": null
+    },
+    {
+      "id": "flagstaff-oak",
+      "name": "Flagstaff Oak",
+      "hex": "#A0826D",
+      "prompt": "medium oak wood",
+      "success": true,
+      "imageFile": "flagstaff-oak.png",
+      "error": null
+    },
+    {
+      "id": "lancaster-oak",
+      "name": "Lancaster Oak",
+      "hex": "#A0785A",
+      "prompt": "classic oak wood",
+      "success": true,
+      "imageFile": "lancaster-oak.png",
+      "error": null
+    },
+    {
+      "id": "liberty-oak",
+      "name": "Liberty Oak",
+      "hex": "#B8956A",
+      "prompt": "light oak wood",
+      "success": true,
+      "imageFile": "liberty-oak.png",
+      "error": null
+    },
+    {
+      "id": "nappa-oak",
+      "name": "Nappa Oak",
+      "hex": "#C4A77D",
+      "prompt": "honey oak wood",
+      "success": true,
+      "imageFile": "nappa-oak.png",
+      "error": null
+    },
+    {
+      "id": "sienna-oak",
+      "name": "Sienna Oak",
+      "hex": "#A0826D",
+      "prompt": "sienna brown oak",
+      "success": true,
+      "imageFile": "sienna-oak.png",
+      "error": null
+    },
+    {
+      "id": "washed-oak",
+      "name": "Washed Oak",
+      "hex": "#C9B896",
+      "prompt": "light washed oak",
+      "success": true,
+      "imageFile": "washed-oak.png",
+      "error": null
+    },
+    {
+      "id": "brown-white-kiaat",
+      "name": "Brown White Kiaat",
+      "hex": "#8B6914",
+      "prompt": "golden kiaat wood",
+      "success": true,
+      "imageFile": "brown-white-kiaat.png",
+      "error": null
+    },
+    {
+      "id": "lake-city-oak",
+      "name": "Lake City Oak",
+      "hex": "#9A7B4F",
+      "prompt": "warm oak wood",
+      "success": true,
+      "imageFile": "lake-city-oak.png",
+      "error": null
+    },
+    {
+      "id": "new-mackinley-birch",
+      "name": "Mackinley Birch",
+      "hex": "#D4C4A8",
+      "prompt": "light birch wood",
+      "success": true,
+      "imageFile": "new-mackinley-birch.png",
+      "error": null
+    },
+    {
+      "id": "pecan-ironwood",
+      "name": "Pecan Ironwood",
+      "hex": "#5D4037",
+      "prompt": "dark pecan wood",
+      "success": true,
+      "imageFile": "pecan-ironwood.png",
+      "error": null
+    },
+    {
+      "id": "silver-mirror",
+      "name": "Silver Mirror",
+      "hex": "#C0C0C0",
+      "prompt": "silver mirror metallic",
+      "success": true,
+      "imageFile": "silver-mirror.png",
+      "error": null
+    },
+    {
+      "id": "gold-mirror",
+      "name": "Gold Mirror",
+      "hex": "#FFD700",
+      "prompt": "gold mirror metallic",
+      "success": true,
+      "imageFile": "gold-mirror.png",
+      "error": null
+    },
+    {
+      "id": "rose-gold-mirror",
+      "name": "Rose Gold Mirror",
+      "hex": "#B76E79",
+      "prompt": "rose gold metallic",
+      "success": true,
+      "imageFile": "rose-gold-mirror.png",
+      "error": null
+    }
+  ]
+}
