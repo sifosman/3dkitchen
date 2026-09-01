@@ -1,17 +1,41 @@
 import { useState, useEffect } from 'react'
 import { boardColors } from '../data/boardColors'
 
+// Check if image exists for a color
+const checkImageExists = async (url) => {
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    return response.ok;
+  } catch {
+    return false;
+  }
+};
+
 export default function PreGeneratedColorizer() {
   const [selectedColor, setSelectedColor] = useState(boardColors[0])
   const [showComparison, setShowComparison] = useState(false)
   const [sliderPosition, setSliderPosition] = useState(50)
   const [imageLoaded, setImageLoaded] = useState(false)
+  const [availableColors, setAvailableColors] = useState([])
 
-  // Map color IDs to generated image filenames
-  const colorImageMap = {}
-  boardColors.forEach(color => {
-    colorImageMap[color.id] = `/images/generated-colors/${color.id}.png`
-  })
+  // Filter to only colors with available images
+  useEffect(() => {
+    const checkImages = async () => {
+      const available = [];
+      for (const color of boardColors) {
+        const imageUrl = `/images/generated-colors/${color.id}.png`;
+        const exists = await checkImageExists(imageUrl);
+        if (exists) {
+          available.push(color);
+        }
+      }
+      setAvailableColors(available);
+      if (available.length > 0) {
+        setSelectedColor(available[0]);
+      }
+    };
+    checkImages();
+  }, []);
 
   const handleColorSelect = (color) => {
     setImageLoaded(false)
@@ -23,6 +47,17 @@ export default function PreGeneratedColorizer() {
     const x = e.clientX - rect.left
     const percentage = (x / rect.width) * 100
     setSliderPosition(Math.max(0, Math.min(100, percentage)))
+  }
+
+  if (availableColors.length === 0) {
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-slate-900">
+        <div className="text-center text-white">
+          <div className="w-10 h-10 border-3 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p>Loading colors...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -88,7 +123,7 @@ export default function PreGeneratedColorizer() {
                     style={{ width: `${sliderPosition}%` }}
                   >
                     <img 
-                      src={colorImageMap[selectedColor.id]} 
+                      src={`/images/generated-colors/${selectedColor.id}.png`}  
                       alt={selectedColor.name}
                       className="max-w-full max-h-[70vh] object-contain"
                       style={{ 
@@ -123,7 +158,7 @@ export default function PreGeneratedColorizer() {
             ) : (
               <div className="relative">
                 <img 
-                  src={colorImageMap[selectedColor.id]} 
+                  src={`/images/generated-colors/${selectedColor.id}.png`}  
                   alt={selectedColor.name}
                   className="max-w-full max-h-[70vh] object-contain rounded-lg shadow-2xl"
                   onLoad={() => setImageLoaded(true)}
@@ -131,18 +166,10 @@ export default function PreGeneratedColorizer() {
                 
                 <div className="absolute bottom-4 left-4 bg-slate-800/95 backdrop-blur-sm rounded-xl p-4 shadow-xl border border-slate-700">
                   <div className="flex items-center gap-3">
-                    {selectedColor.image ? (
-                      <img 
-                        src={selectedColor.image} 
-                        alt={selectedColor.name}
-                        className="w-14 h-14 rounded-lg object-cover border-2 border-slate-600"
-                      />
-                    ) : (
-                      <div 
-                        className="w-14 h-14 rounded-lg border-2 border-slate-600"
-                        style={{ backgroundColor: selectedColor.hex }}
-                      />
-                    )}
+                    <div 
+                      className="w-14 h-14 rounded-lg border-2 border-slate-600"
+                      style={{ backgroundColor: selectedColor.hex }}
+                    />
                     <div>
                       <h3 className="font-semibold text-white text-lg">{selectedColor.name}</h3>
                       <p className="text-sm text-slate-400">{selectedColor.category}</p>
@@ -167,7 +194,7 @@ export default function PreGeneratedColorizer() {
           
           <div className="flex-1 overflow-y-auto p-4">
             <div className="grid grid-cols-2 gap-3">
-              {boardColors.map((color) => (
+              {availableColors.map((color) => (
                 <button
                   key={color.id}
                   onClick={() => handleColorSelect(color)}
@@ -217,7 +244,7 @@ export default function PreGeneratedColorizer() {
           
           <div className="p-4 border-t border-slate-700 bg-slate-800/50">
             <p className="text-xs text-slate-400 text-center">
-              {boardColors.length} colors available
+              {availableColors.length} colors available
             </p>
           </div>
         </div>
