@@ -178,6 +178,7 @@ function ThreeDViewer({ selectedColor, onColorSelect }) {
         <Canvas
           camera={{ position: [5, 3, 5], fov: 45 }}
           style={{ background: '#0a0a0a' }}
+          className="touch-none"
           shadows
           gl={{ 
             antialias: true, 
