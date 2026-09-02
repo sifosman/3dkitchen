@@ -28,7 +28,7 @@ export default function ColorPalette({ colors, selectedColor, onColorSelect }) {
   return (
     <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="p-3 sm:p-4 border-b border-white/[0.06]">
+      <div className="p-3 sm:p-4 border-b border-white/[0.06] flex-shrink-0">
         <h2 className="text-sm sm:text-base font-heading text-white font-semibold mb-3">
           Select Board Color
         </h2>
@@ -68,7 +68,7 @@ export default function ColorPalette({ colors, selectedColor, onColorSelect }) {
       </div>
       
       {/* Color Grid */}
-      <div className="flex-1 overflow-y-auto color-palette-scroll p-3 sm:p-4">
+      <div className="flex-1 min-h-0 overflow-y-auto color-palette-scroll p-3 sm:p-4">
         <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
           {filteredColors.map((color) => {
             const isSelected = selectedColor.id === color.id
@@ -139,7 +139,7 @@ export default function ColorPalette({ colors, selectedColor, onColorSelect }) {
       </div>
       
       {/* Footer */}
-      <div className="p-3 sm:p-4 border-t border-white/[0.06] bg-hds-dark-600/50">
+      <div className="p-3 sm:p-4 border-t border-white/[0.06] bg-hds-dark-600/50 flex-shrink-0">
         <p className="text-[10px] sm:text-xs text-white/25 text-center">
           {filteredColors.length} color{filteredColors.length !== 1 ? 's' : ''} available
         </p>

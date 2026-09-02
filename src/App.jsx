@@ -259,19 +259,21 @@ function ThreeDViewer({ selectedColor, onColorSelect }) {
             className="lg:hidden fixed inset-0 z-40 mobile-drawer-overlay animate-fade-in"
             onClick={() => setPaletteOpen(false)}
           />
-          <div className="lg:hidden fixed inset-x-0 bottom-0 z-50 max-h-[70vh] rounded-t-2xl overflow-hidden animate-slide-up shadow-elevated"
+          <div className="lg:hidden fixed inset-x-0 bottom-0 z-50 h-[70vh] rounded-t-2xl animate-slide-up shadow-elevated"
             style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
           >
-            <div className="bg-hds-dark-500 border-t border-white/[0.06] rounded-t-2xl">
+            <div className="bg-hds-dark-500 border-t border-white/[0.06] rounded-t-2xl h-full flex flex-col">
               {/* Drag handle */}
-              <div className="flex justify-center pt-3 pb-1">
+              <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
                 <div className="w-10 h-1 rounded-full bg-white/15" />
               </div>
-              <ColorPalette 
-                colors={boardColors}
-                selectedColor={selectedColor}
-                onColorSelect={handleColorSelect}
-              />
+              <div className="flex-1 min-h-0">
+                <ColorPalette 
+                  colors={boardColors}
+                  selectedColor={selectedColor}
+                  onColorSelect={handleColorSelect}
+                />
+              </div>
             </div>
           </div>
         </>

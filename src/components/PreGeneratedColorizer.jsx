@@ -240,21 +240,23 @@ export default function PreGeneratedColorizer() {
             className="lg:hidden fixed inset-0 z-40 mobile-drawer-overlay animate-fade-in"
             onClick={() => setPaletteOpen(false)}
           />
-          <div className="lg:hidden fixed inset-x-0 bottom-0 z-50 max-h-[70vh] rounded-t-2xl overflow-hidden animate-slide-up shadow-elevated"
+          <div className="lg:hidden fixed inset-x-0 bottom-0 z-50 h-[70vh] rounded-t-2xl animate-slide-up shadow-elevated"
             style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
           >
-            <div className="bg-hds-dark-500 border-t border-white/[0.06] rounded-t-2xl">
-              <div className="flex justify-center pt-3 pb-1">
+            <div className="bg-hds-dark-500 border-t border-white/[0.06] rounded-t-2xl h-full flex flex-col">
+              <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
                 <div className="w-10 h-1 rounded-full bg-white/15" />
               </div>
-              <ColorPaletteSidebar 
-                categories={categories}
-                activeCategory={activeCategory}
-                onCategoryChange={setActiveCategory}
-                filteredColors={filteredColors}
-                selectedColor={selectedColor}
-                onColorSelect={handleColorSelect}
-              />
+              <div className="flex-1 min-h-0">
+                <ColorPaletteSidebar 
+                  categories={categories}
+                  activeCategory={activeCategory}
+                  onCategoryChange={setActiveCategory}
+                  filteredColors={filteredColors}
+                  selectedColor={selectedColor}
+                  onColorSelect={handleColorSelect}
+                />
+              </div>
             </div>
           </div>
         </>
@@ -268,7 +270,7 @@ function ColorPaletteSidebar({ categories, activeCategory, onCategoryChange, fil
   return (
     <div className="h-full flex flex-col">
       {/* Category Filter */}
-      <div className="p-3 sm:p-4 border-b border-white/[0.06]">
+      <div className="p-3 sm:p-4 border-b border-white/[0.06] flex-shrink-0">
         <h2 className="text-sm sm:text-base font-heading text-white font-semibold mb-3">
           Select Board Color
         </h2>
@@ -290,7 +292,7 @@ function ColorPaletteSidebar({ categories, activeCategory, onCategoryChange, fil
       </div>
       
       {/* Color Grid */}
-      <div className="flex-1 overflow-y-auto color-palette-scroll p-3 sm:p-4">
+      <div className="flex-1 min-h-0 overflow-y-auto color-palette-scroll p-3 sm:p-4">
         <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
           {filteredColors.map((color) => {
             const isSelected = selectedColor.id === color.id
@@ -344,7 +346,7 @@ function ColorPaletteSidebar({ categories, activeCategory, onCategoryChange, fil
       </div>
       
       {/* Footer */}
-      <div className="p-3 sm:p-4 border-t border-white/[0.06] bg-hds-dark-600/50">
+      <div className="p-3 sm:p-4 border-t border-white/[0.06] bg-hds-dark-600/50 flex-shrink-0">
         <p className="text-[10px] sm:text-xs text-white/25 text-center">
           {filteredColors.length} color{filteredColors.length !== 1 ? 's' : ''} available
         </p>
