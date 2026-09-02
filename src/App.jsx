@@ -3,7 +3,6 @@ import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Environment, ContactShadows, SoftShadows } from '@react-three/drei'
 import * as THREE from 'three'
 import KitchenScene from './components/KitchenScene'
-import PhotoColorizer from './components/PhotoColorizer'
 import PreGeneratedColorizer from './components/PreGeneratedColorizer'
 import ColorPalette from './components/ColorPalette'
 import Header from './components/Header'
@@ -11,10 +10,10 @@ import { boardColors, defaultColor } from './data/boardColors'
 
 function LoadingFallback() {
   return (
-    <div className="absolute inset-0 z-10 flex items-center justify-center bg-slate-900">
+    <div className="absolute inset-0 z-10 flex items-center justify-center bg-gray-100">
       <div className="flex flex-col items-center gap-3">
-        <div className="w-10 h-10 border-3 border-blue-500 border-t-transparent rounded-full animate-spin" />
-        <p className="text-slate-400 text-sm">Loading 3D Kitchen...</p>
+        <div className="w-10 h-10 border-2 border-black border-t-transparent rounded-full animate-spin" />
+        <p className="hds-body text-gray-600">Loading 3D Kitchen...</p>
       </div>
     </div>
   )
@@ -31,20 +30,20 @@ function ThreeDViewer({ selectedColor, onColorSelect }) {
   }, [onColorSelect])
 
   return (
-    <div className="w-full h-full flex flex-col bg-slate-900">
+    <div className="w-full h-full flex flex-col bg-gray-100">
       <Header />
       
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         <div className="flex-1 relative min-h-[50vh] lg:min-h-0">
           {isLoading && (
-            <div className="absolute inset-0 z-10 flex items-center justify-center bg-slate-900/50">
-              <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-gray-100/80">
+              <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin" />
             </div>
           )}
           
           <Canvas
             camera={{ position: [5, 3, 5], fov: 45 }}
-            style={{ background: 'linear-gradient(to bottom, #1a1a2e, #0f0f1a)' }}
+            style={{ background: 'linear-gradient(to bottom, #1a1a1a, #0f0f0f)' }}
             shadows
             gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping }}
           >
@@ -79,25 +78,17 @@ function ThreeDViewer({ selectedColor, onColorSelect }) {
             </Suspense>
           </Canvas>
           
-          <div className="absolute bottom-4 left-4 bg-slate-800/95 backdrop-blur-sm rounded-xl p-4 max-w-xs shadow-xl border border-slate-700">
+          <div className="absolute bottom-4 left-4 bg-white shadow-xl p-4 max-w-xs border-l-4 border-black">
             <div className="flex items-center gap-3">
-              {selectedColor.image ? (
-                <img 
-                  src={selectedColor.image} 
-                  alt={selectedColor.name}
-                  className="w-14 h-14 rounded-lg object-cover border-2 border-slate-600"
-                />
-              ) : (
-                <div 
-                  className="w-14 h-14 rounded-lg border-2 border-slate-600"
-                  style={{ backgroundColor: selectedColor.hex }}
-                />
-              )}
+              <div 
+                className="w-14 h-14 border border-gray-200"
+                style={{ backgroundColor: selectedColor.hex }}
+              />
               <div>
-                <h3 className="font-semibold text-white text-lg">{selectedColor.name}</h3>
-                <p className="text-sm text-slate-400">{selectedColor.category}</p>
+                <h3 className="hds-heading text-lg text-black">{selectedColor.name}</h3>
+                <p className="hds-label text-gray-500">{selectedColor.category}</p>
                 {selectedColor.price > 0 && (
-                  <p className="text-sm text-green-400 font-semibold mt-1">
+                  <p className="hds-heading text-black mt-1">
                     R{selectedColor.price.toLocaleString()}
                   </p>
                 )}
@@ -105,12 +96,12 @@ function ThreeDViewer({ selectedColor, onColorSelect }) {
             </div>
           </div>
           
-          <div className="absolute top-4 right-4 bg-slate-800/80 backdrop-blur-sm rounded-lg px-3 py-2 text-xs text-slate-400">
-            <p>🖱️ Drag to rotate • Scroll to zoom • Right-click to pan</p>
+          <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-2 text-xs hds-label text-gray-600">
+            <p>Drag to rotate • Scroll to zoom • Right-click to pan</p>
           </div>
         </div>
         
-        <div className="w-full lg:w-96 bg-slate-800 border-t lg:border-t-0 lg:border-l border-slate-700 overflow-hidden flex flex-col">
+        <div className="w-full lg:w-96 bg-white border-t lg:border-t-0 lg:border-l border-gray-200 overflow-hidden flex flex-col">
           <ColorPalette 
             colors={boardColors}
             selectedColor={selectedColor}
@@ -130,26 +121,26 @@ function App() {
   return (
     <div className="w-full h-full">
       {/* Mode Toggle */}
-      <div className="fixed top-4 right-4 z-50 flex gap-2">
+      <div className="fixed top-20 right-6 z-50 flex gap-2">
         <button
           onClick={() => setMode('photo')}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+          className={`px-4 py-2 text-xs hds-label transition-all ${
             mode === 'photo'
-              ? 'bg-blue-600 text-white'
-              : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+              ? 'bg-black text-white'
+              : 'bg-white text-black border border-gray-300 hover:border-black'
           }`}
         >
-          📷 Photo Mode
+          Photo Mode
         </button>
         <button
           onClick={() => setMode('3d')}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+          className={`px-4 py-2 text-xs hds-label transition-all ${
             mode === '3d'
-              ? 'bg-blue-600 text-white'
-              : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+              ? 'bg-black text-white'
+              : 'bg-white text-black border border-gray-300 hover:border-black'
           }`}
         >
-          🎮 3D Mode
+          3D Mode
         </button>
       </div>
 
