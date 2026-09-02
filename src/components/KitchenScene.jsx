@@ -6,10 +6,9 @@ import * as THREE from 'three'
 // Build a material that uses the actual board photo as the texture map,
 // so the 3D render matches the board's real color/grain.
 function useBoardMaterial(color) {
-  // Always call hooks unconditionally. When the color has no image, use a tiny neutral placeholder;
-  // we only attach the map when a real image exists.
-  const placeholderUrl = '/images/hds-logo.webp'
-  const textureUrl = color?.image || placeholderUrl
+  // Use a pre-cropped real-kitchen door region if available (renderTexture) — better realism for test
+  const textureUrl = color?.renderTexture || color?.image || '/images/hds-logo.webp'
+  const hasRealTexture = !!color?.renderTexture || !!color?.image
   const texture = useTexture(textureUrl)
 
   const material = useMemo(() => {
@@ -22,7 +21,7 @@ function useBoardMaterial(color) {
     // boards-on-a-shelf. Skip the image map for that finish.
     let map = null
     const useImageMap = color.texture !== 'mirror'
-    if (useImageMap && color.image && texture && texture.image) {
+    if (useImageMap && hasRealTexture && texture && texture.image) {
       map = texture
       map.colorSpace = THREE.SRGBColorSpace
       map.wrapS = THREE.RepeatWrapping
