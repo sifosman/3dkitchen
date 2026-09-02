@@ -86,20 +86,20 @@ function useBoardMaterial(color) {
 
 // Note: procedural wood texture has been replaced by real board-photo maps.
 
-// Create light marble/countertop texture
+// Create dark marble/countertop texture
 function createCountertopTexture() {
   const canvas = document.createElement('canvas')
   canvas.width = 512
   canvas.height = 512
   const ctx = canvas.getContext('2d')
   
-  // Light marble base
-  ctx.fillStyle = '#F5F0E8'
+  // Deep charcoal base
+  ctx.fillStyle = '#1a1a1a'
   ctx.fillRect(0, 0, 512, 512)
   
   // Add subtle marble veins
   for (let i = 0; i < 25; i++) {
-    ctx.strokeStyle = `rgba(200, 190, 180, ${0.03 + Math.random() * 0.04})`
+    ctx.strokeStyle = `rgba(255, 255, 255, ${0.03 + Math.random() * 0.04})`
     ctx.lineWidth = 0.5 + Math.random() * 2
     
     ctx.beginPath()
@@ -283,22 +283,22 @@ export default function KitchenScene({ selectedColor }) {
 
   return (
     <group ref={groupRef}>
-      {/* Floor — Light wood */}
+      {/* Floor — Dark wood */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]} receiveShadow>
         <planeGeometry args={[20, 20]} />
-        <meshStandardMaterial color="#8B7355" roughness={0.6} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.7} />
       </mesh>
       
-      {/* Back Wall — Light warm grey */}
+      {/* Back Wall — Dark charcoal */}
       <mesh position={[0, 2, -3.5]} receiveShadow>
         <boxGeometry args={[14, 6, 0.2]} />
-        <meshStandardMaterial color="#E8E0D8" roughness={0.9} />
+        <meshStandardMaterial color="#2a2a2a" roughness={0.85} />
       </mesh>
       
-      {/* Left Wall — Light warm grey */}
+      {/* Left Wall — Dark charcoal */}
       <mesh position={[-5, 2, 0]} rotation={[0, Math.PI / 2, 0]} receiveShadow>
         <boxGeometry args={[8, 6, 0.2]} />
-        <meshStandardMaterial color="#E8E0D8" roughness={0.9} />
+        <meshStandardMaterial color="#252525" roughness={0.85} />
       </mesh>
 
       {/* ─── Back wall ─── */}
@@ -346,16 +346,16 @@ export default function KitchenScene({ selectedColor }) {
       <group position={[-1.0, 0.55, -3]}>
         <mesh castShadow>
           <boxGeometry args={[0.85, 0.13, 0.5]} />
-          <meshStandardMaterial color="#B8B8B8" metalness={0.9} roughness={0.15} />
+          <meshStandardMaterial color="#5a5a5a" metalness={0.9} roughness={0.1} />
         </mesh>
         {/* Faucet */}
         <mesh position={[0, 0.22, -0.15]} castShadow>
           <cylinderGeometry args={[0.02, 0.02, 0.3, 8]} />
-          <meshStandardMaterial color="#C0C0C0" metalness={0.95} roughness={0.1} />
+          <meshStandardMaterial color="#A0A0A0" metalness={0.95} roughness={0.08} />
         </mesh>
         <mesh position={[0, 0.37, -0.1]} rotation={[Math.PI / 4, 0, 0]} castShadow>
           <cylinderGeometry args={[0.015, 0.015, 0.2, 8]} />
-          <meshStandardMaterial color="#C0C0C0" metalness={0.95} roughness={0.1} />
+          <meshStandardMaterial color="#A0A0A0" metalness={0.95} roughness={0.08} />
         </mesh>
       </group>
 
@@ -363,13 +363,13 @@ export default function KitchenScene({ selectedColor }) {
       <group position={[1.8, 0.55, -3]}>
         <mesh castShadow>
           <boxGeometry args={[1.0, 0.04, 0.6]} />
-          <meshStandardMaterial color="#444444" roughness={0.35} metalness={0.4} />
+          <meshStandardMaterial color="#111111" roughness={0.3} metalness={0.5} />
         </mesh>
         {/* Burners */}
         {[[-0.3, -0.15], [0.3, -0.15], [-0.3, 0.15], [0.3, 0.15]].map(([x, z], i) => (
           <mesh key={i} position={[x, 0.025, z]} castShadow>
             <cylinderGeometry args={[0.12, 0.12, 0.02, 32]} />
-            <meshStandardMaterial color="#555555" roughness={0.5} />
+            <meshStandardMaterial color="#222222" roughness={0.5} />
           </mesh>
         ))}
       </group>
@@ -378,11 +378,11 @@ export default function KitchenScene({ selectedColor }) {
       <group position={[1.8, 2.6, -3]}>
         <mesh castShadow>
           <boxGeometry args={[1.05, 0.4, 0.5]} />
-          <meshStandardMaterial color="#A0A0A0" metalness={0.9} roughness={0.15} />
+          <meshStandardMaterial color="#888888" metalness={0.9} roughness={0.1} />
         </mesh>
         <mesh position={[0, -0.3, 0]} castShadow>
           <boxGeometry args={[0.85, 0.15, 0.4]} />
-          <meshStandardMaterial color="#A0A0A0" metalness={0.9} roughness={0.15} />
+          <meshStandardMaterial color="#888888" metalness={0.9} roughness={0.1} />
         </mesh>
       </group>
 
@@ -392,7 +392,7 @@ export default function KitchenScene({ selectedColor }) {
           <group key={i} position={[x, 0, 0]}>
             <mesh position={[0, 0.3, 0]}>
               <cylinderGeometry args={[0.01, 0.01, 0.6, 8]} />
-              <meshStandardMaterial color="#B0B0B0" />
+              <meshStandardMaterial color="#2a2a2a" />
             </mesh>
             <mesh position={[0, 0, 0]} castShadow>
               <sphereGeometry args={[0.15, 32, 32]} />
@@ -406,15 +406,15 @@ export default function KitchenScene({ selectedColor }) {
       {/* Under-cabinet lighting on back wall */}
       <pointLight position={[-1.6, 1.8, -2.85]} intensity={0.4} color="#fff8e8" distance={4} />
 
-      {/* Window — bright daylight */}
+      {/* Window — subtle ambient */}
       <group position={[5, 1.5, 0]} rotation={[0, -Math.PI / 2, 0]}>
         <mesh position={[0, 0, 0]}>
           <planeGeometry args={[2.1, 1.6]} />
-          <meshStandardMaterial color="#E8E0D8" roughness={0.6} />
+          <meshStandardMaterial color="#1a1a1a" roughness={0.6} />
         </mesh>
         <mesh position={[0, 0, 0.01]}>
           <planeGeometry args={[1.9, 1.4]} />
-          <meshStandardMaterial color="#87CEEB" emissive="#B0E0E6" emissiveIntensity={0.3} />
+          <meshStandardMaterial color="#1a1a2e" emissive="#0a0a1e" emissiveIntensity={0.15} />
         </mesh>
       </group>
     </group>

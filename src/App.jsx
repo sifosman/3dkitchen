@@ -177,42 +177,38 @@ function ThreeDViewer({ selectedColor, onColorSelect }) {
 
         <Canvas
           camera={{ position: [5, 3, 5], fov: 45 }}
-          style={{ background: '#87CEEB' }}
+          style={{ background: '#0a0a0a' }}
           shadows
           gl={{ 
             antialias: true, 
             toneMapping: THREE.ACESFilmicToneMapping,
-            toneMappingExposure: 1.2,
+            toneMappingExposure: 1.1,
           }}
           onCreated={({ gl }) => {
             // Ensure colors and textures are rendered in the same space as the board photos.
             gl.outputColorSpace = THREE.SRGBColorSpace
             gl.toneMapping = THREE.ACESFilmicToneMapping
-            gl.toneMappingExposure = 1.2
+            gl.toneMappingExposure = 1.1
           }}
         >
           <Suspense fallback={null}>
-            {/* Hemisphere light: sky blue above, warm ground below — like daylight */}
-            <hemisphereLight args={['#dbe9ff', '#ffd9b3', 0.7]} />
-            {/* Sun directional light */}
+            <ambientLight intensity={0.35} color="#fff6ec" />
             <directionalLight 
-              position={[6, 10, 4]} 
-              intensity={2.2} 
-              color="#fff2e0"
+              position={[5, 8, 5]} 
+              intensity={1.6} 
+              color="#fff0dd"
               castShadow 
               shadow-mapSize={[2048, 2048]}
               shadow-bias={-0.0001}
             />
-            {/* Fill light from opposite side */}
-            <directionalLight position={[-4, 6, -4]} intensity={0.6} color="#e8f0ff" />
-            {/* Soft ambient */}
-            <ambientLight intensity={0.2} color="#fff8f0" />
+            <directionalLight position={[-5, 5, -5]} intensity={0.45} color="#f0f0f4" />
+            <pointLight position={[0, 4, 0]} intensity={0.5} color="#fff3e2" />
             <SoftShadows size={25} samples={16} focus={0.5} />
             
             <KitchenScene selectedColor={selectedColor} />
             
-            <ContactShadows position={[0, -0.49, 0]} opacity={0.35} scale={15} blur={2.5} far={4} />
-            <Environment preset="dawn" background={false} />
+            <ContactShadows position={[0, -0.49, 0]} opacity={0.45} scale={15} blur={2.5} far={4} />
+            <Environment preset="warehouse" background={false} />
             <OrbitControls 
               enablePan={true}
               enableZoom={true}
