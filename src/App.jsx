@@ -65,10 +65,18 @@ function SelectedColorCard({ selectedColor }) {
     <div className="absolute bottom-4 left-4 z-10 max-w-[260px] sm:max-w-xs animate-fade-in">
       <div className="hds-glass rounded-2xl p-4 border-l-2 border-hds-gold shadow-elevated">
         <div className="flex items-center gap-3">
-          <div 
-            className="w-14 h-14 rounded-xl flex-shrink-0 ring-1 ring-white/10"
-            style={{ backgroundColor: selectedColor.hex }}
-          />
+          {selectedColor.image ? (
+            <img
+              src={selectedColor.image}
+              alt={selectedColor.name}
+              className="w-14 h-14 rounded-xl flex-shrink-0 object-cover ring-1 ring-white/10"
+            />
+          ) : (
+            <div 
+              className="w-14 h-14 rounded-xl flex-shrink-0 ring-1 ring-white/10"
+              style={{ backgroundColor: selectedColor.hex }}
+            />
+          )}
           <div className="min-w-0">
             <h3 className="font-heading text-white font-semibold text-sm sm:text-base truncate">
               {selectedColor.name}
@@ -174,26 +182,33 @@ function ThreeDViewer({ selectedColor, onColorSelect }) {
           gl={{ 
             antialias: true, 
             toneMapping: THREE.ACESFilmicToneMapping,
-            toneMappingExposure: 1.1,
+            toneMappingExposure: 1.0,
+          }}
+          onCreated={({ gl }) => {
+            // Ensure colors and textures are rendered in the same space as the board photos.
+            gl.outputColorSpace = THREE.SRGBColorSpace
+            gl.toneMapping = THREE.ACESFilmicToneMapping
+            gl.toneMappingExposure = 1.0
           }}
         >
           <Suspense fallback={null}>
-            <ambientLight intensity={0.25} />
+            <ambientLight intensity={0.3} color="#fff6ec" />
             <directionalLight 
               position={[5, 8, 5]} 
-              intensity={1.4} 
+              intensity={1.5} 
+              color="#fff0dd"
               castShadow 
               shadow-mapSize={[2048, 2048]}
               shadow-bias={-0.0001}
             />
-            <directionalLight position={[-5, 5, -5]} intensity={0.35} />
-            <pointLight position={[0, 4, 0]} intensity={0.4} color="#fff5e6" />
+            <directionalLight position={[-5, 5, -5]} intensity={0.4} color="#f0f0f4" />
+            <pointLight position={[0, 4, 0]} intensity={0.5} color="#fff3e2" />
             <SoftShadows size={25} samples={16} focus={0.5} />
             
             <KitchenScene selectedColor={selectedColor} />
             
             <ContactShadows position={[0, -0.49, 0]} opacity={0.5} scale={15} blur={2.5} far={4} />
-            <Environment preset="night" background={false} />
+            <Environment preset="warehouse" background={false} />
             <OrbitControls 
               enablePan={true}
               enableZoom={true}
