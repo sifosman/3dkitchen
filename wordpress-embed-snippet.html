@@ -1,0 +1,18 @@
+<!-- HDS Kitchen Visualiser — WordPress/Elementor embed snippet
+     Paste into an Elementor "HTML" widget on the page /kitchen-visualiser/
+     Page layout: Elementor Canvas (full-screen, no WP header/title)
+     When the subdomain goes live, replace the URL in both places below. -->
+<iframe
+  id="hds-kitchen-visualiser"
+  src="https://3dkitchen-khaki.vercel.app/"
+  title="HDS Kitchen Visualiser"
+  style="width:100%; height:calc(100vh - 20px); min-height:640px; border:0; display:block;"
+></iframe>
+<script>
+  (function () {
+    var f = document.getElementById('hds-kitchen-visualiser');
+    if (window.location.search.length > 1) {
+      f.src = 'https://3dkitchen-khaki.vercel.app/' + window.location.search;
+    }
+  })();
+</script>

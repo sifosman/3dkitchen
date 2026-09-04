@@ -6,7 +6,7 @@
 
 :root {
   /* HDS Brand Colors */
-  --hds-black: #0a0a0a;
+  --hds-black: #000000;
   --hds-white: #FFFFFF;
   --hds-off-white: #F8F8FA;
   --hds-light-gray: #D2D2D2;
@@ -16,16 +16,16 @@
   --hds-gold-dark: #C8A000;
 
   /* Premium Dark Palette */
-  --hds-bg-primary: #0a0a0a;
-  --hds-bg-secondary: #111111;
-  --hds-bg-tertiary: #1a1a1a;
-  --hds-bg-card: #161616;
-  --hds-bg-elevated: #1e1e1e;
+  --hds-bg-primary: #000000;
+  --hds-bg-secondary: #000000;
+  --hds-bg-tertiary: #050505;
+  --hds-bg-card: #050505;
+  --hds-bg-elevated: #0a0a0a;
   --hds-border: #2a2a2a;
   --hds-border-light: #333333;
 
   /* Glass effect */
-  --glass-bg: rgba(18, 18, 18, 0.85);
+  --glass-bg: rgba(0, 0, 0, 0.85);
   --glass-border: rgba(255, 255, 255, 0.06);
   --glass-blur: 16px;
 

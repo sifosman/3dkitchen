@@ -286,19 +286,19 @@ export default function KitchenScene({ selectedColor }) {
       {/* Floor — Dark wood */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]} receiveShadow>
         <planeGeometry args={[20, 20]} />
-        <meshStandardMaterial color="#1a1a1a" roughness={0.7} />
+        <meshStandardMaterial color="#0a0a0a" roughness={0.7} />
       </mesh>
       
       {/* Back Wall — Dark charcoal */}
       <mesh position={[0, 2, -3.5]} receiveShadow>
         <boxGeometry args={[14, 6, 0.2]} />
-        <meshStandardMaterial color="#2a2a2a" roughness={0.85} />
+        <meshStandardMaterial color="#0d0d0d" roughness={0.85} />
       </mesh>
       
       {/* Left Wall — Dark charcoal */}
       <mesh position={[-5, 2, 0]} rotation={[0, Math.PI / 2, 0]} receiveShadow>
         <boxGeometry args={[8, 6, 0.2]} />
-        <meshStandardMaterial color="#252525" roughness={0.85} />
+        <meshStandardMaterial color="#0b0b0b" roughness={0.85} />
       </mesh>
 
       {/* ─── Back wall ─── */}
