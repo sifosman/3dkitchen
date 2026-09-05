@@ -11,7 +11,7 @@ const checkImageExists = async (url) => {
   }
 };
 
-export default function PreGeneratedColorizer() {
+export default function PreGeneratedColorizer({ initialColorId = null, onFallbackTo3D = null }) {
   const [selectedColor, setSelectedColor] = useState(boardColors[0])
   const [showComparison, setShowComparison] = useState(false)
   const [sliderPosition, setSliderPosition] = useState(50)
@@ -35,7 +35,13 @@ export default function PreGeneratedColorizer() {
         }
       }
       setAvailableColors(available);
-      if (available.length > 0) {
+      const requested = initialColorId ? available.find((c) => c.id === initialColorId) : null;
+      if (requested) {
+        setSelectedColor(requested);
+      } else if (initialColorId && boardColors.some((c) => c.id === initialColorId)) {
+        // Requested colour exists in the catalog but has no pre-generated photo — show it in 3D mode instead
+        if (onFallbackTo3D) onFallbackTo3D();
+      } else if (available.length > 0) {
         setSelectedColor(available[0]);
       }
     };

@@ -6,7 +6,40 @@ import KitchenScene from './components/KitchenScene'
 import PreGeneratedColorizer from './components/PreGeneratedColorizer'
 import ColorPalette from './components/ColorPalette'
 import Header from './components/Header'
-import { boardColors, defaultColor } from './data/boardColors'
+import { boardColors, defaultColor, getColorById } from './data/boardColors'
+
+const SUPABASE_URL = 'https://xzsibbbghotreolzwnyk.supabase.co'
+const SUPABASE_ANON_KEY =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6c2liYmJnaG90cmVvbHp3bnlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3MTcyMzUsImV4cCI6MjA2NzI5MzIzNX0.Yq6YS2Mw8fE4pTloeCTUSmI06RrUYe_WW_pC0NTqUDE'
+
+const urlParams =
+  typeof window !== 'undefined'
+    ? new URLSearchParams(window.location.search)
+    : new URLSearchParams()
+const requestedColor = getColorById(
+  urlParams.get('colour') || urlParams.get('color') || ''
+)
+const linkToken = urlParams.get('t') || ''
+
+function logVisualiserClick() {
+  if (!linkToken) return
+  try {
+    fetch(`${SUPABASE_URL}/rest/v1/visualizer_link_clicks`, {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify({
+        token: linkToken,
+        colour_id: requestedColor ? requestedColor.id : null,
+        user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : null,
+      }),
+    }).catch(() => {})
+  } catch (e) {}
+}
 
 function LoadingFallback() {
   return (
@@ -286,7 +319,11 @@ function ThreeDViewer({ selectedColor, onColorSelect }) {
 // ─── Main App ───
 function App() {
   const [mode, setMode] = useState('photo')
-  const [selectedColor, setSelectedColor] = useState(defaultColor)
+  const [selectedColor, setSelectedColor] = useState(requestedColor || defaultColor)
+
+  useEffect(() => {
+    logVisualiserClick()
+  }, [])
 
   // Listen for escape key to show/hide controls, etc.
   useEffect(() => {
@@ -311,7 +348,10 @@ function App() {
             </div>
             <ModeToggle mode={mode} onModeChange={setMode} />
           </div>
-          <PreGeneratedColorizer />
+          <PreGeneratedColorizer
+            initialColorId={requestedColor ? requestedColor.id : null}
+            onFallbackTo3D={() => setMode('3d')}
+          />
         </div>
       ) : (
         <AppLayout mode={mode} onModeChange={setMode}>
